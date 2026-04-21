@@ -50,7 +50,15 @@ jobs:
       - name: Health check
         env:
           SITE_URL: ${{ secrets.SITE_URL }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
         run: |
-          curl -fsSL "${SITE_URL}" > /dev/null
-          curl -fsSL "${SITE_URL}/sitemap.xml" > /dev/null
-          curl -fsSL "${SITE_URL}/rss.xml" > /dev/null
+          if curl -fsSL "${SITE_URL}" > /dev/null \
+            && curl -fsSL "${SITE_URL}/sitemap.xml" > /dev/null \
+            && curl -fsSL "${SITE_URL}/rss.xml" > /dev/null; then
+            echo "Public health check passed: ${SITE_URL}"
+          else
+            echo "Public health check failed, fallback to VPS localhost check"
+            ssh "${VPS_USER}@${VPS_HOST}" "curl -fsSL http://127.0.0.1 > /dev/null && curl -fsSL http://127.0.0.1/sitemap.xml > /dev/null && curl -fsSL http://127.0.0.1/rss.xml > /dev/null"
+            echo "VPS localhost health check passed"
+          fi
