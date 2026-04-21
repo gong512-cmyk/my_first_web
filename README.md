@@ -109,6 +109,31 @@ images: [
 
 ## VPS 部署（海外腾讯云）
 
+### Alibaba Cloud Linux 3（RHEL/CentOS 系）快速初始化
+
+你的系统如果是 Alibaba Cloud Linux 3，请不要使用 apt。可以直接运行项目里的初始化脚本：
+
+```bash
+cd /Users/frank/Desktop/Vscode_frank/my_first_web
+chmod +x scripts/bootstrap_alinux3.sh
+sudo bash scripts/bootstrap_alinux3.sh <你的部署用户>
+```
+
+示例：
+
+```bash
+sudo bash scripts/bootstrap_alinux3.sh ec2-user
+```
+
+脚本会自动完成：
+
+1. 安装 nginx、curl、tar、openssh-clients、firewalld
+2. 创建 /var/www/lifelog/releases 与 /var/www/lifelog/current 体系所需目录
+3. 写入基于 IP 的 Nginx 配置（先走 HTTP）
+4. 启动 nginx 与 firewalld，并放行 22/80
+
+然后请确认云安全组也放行了 TCP 22 和 80。
+
 1. 准备服务器目录：
 
 ```bash
