@@ -34,11 +34,8 @@ jobs:
           RELEASE_ID: ${{ steps.release.outputs.id }}
         run: |
           REMOTE_RELEASE="/var/www/lifelog/releases/${RELEASE_ID}"
-          rsync -av --delete \
-            --exclude ".git" \
-            --exclude ".github" \
-            --exclude "scripts" \
-            ./ "${VPS_USER}@${VPS_HOST}:${REMOTE_RELEASE}"
+          tar --exclude=".git" --exclude=".github" --exclude="scripts" -czf - . \
+            | ssh "${VPS_USER}@${VPS_HOST}" "mkdir -p '${REMOTE_RELEASE}' && tar -xzf - -C '${REMOTE_RELEASE}'"
 
       - name: Switch current symlink and clean old releases
         env:
