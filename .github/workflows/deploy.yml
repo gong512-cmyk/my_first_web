@@ -1,0 +1,59 @@
+name: Deploy Website
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set release id
+        id: release
+        run: echo "id=$(date +%Y%m%d%H%M%S)" >> "$GITHUB_OUTPUT"
+
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+
+      - name: Add VPS host key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "${{ secrets.VPS_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Upload files to VPS release folder
+        env:
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          RELEASE_ID: ${{ steps.release.outputs.id }}
+        run: |
+          REMOTE_RELEASE="/var/www/lifelog/releases/${RELEASE_ID}"
+          rsync -av --delete \
+            --exclude ".git" \
+            --exclude ".github" \
+            --exclude "scripts" \
+            ./ "${VPS_USER}@${VPS_HOST}:${REMOTE_RELEASE}"
+
+      - name: Switch current symlink and clean old releases
+        env:
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          RELEASE_ID: ${{ steps.release.outputs.id }}
+        run: |
+          REMOTE_RELEASE="/var/www/lifelog/releases/${RELEASE_ID}"
+          ssh "${VPS_USER}@${VPS_HOST}" "ln -sfn '${REMOTE_RELEASE}' /var/www/lifelog/current"
+          ssh "${VPS_USER}@${VPS_HOST}" "cd /var/www/lifelog/releases && ls -1dt */ | tail -n +8 | xargs -r rm -rf"
+
+      - name: Health check
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+        run: |
+          curl -fsSL "${SITE_URL}" > /dev/null
+          curl -fsSL "${SITE_URL}/sitemap.xml" > /dev/null
+          curl -fsSL "${SITE_URL}/rss.xml" > /dev/null

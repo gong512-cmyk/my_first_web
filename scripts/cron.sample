@@ -1,0 +1,8 @@
+# Run backup every day at 02:10
+10 2 * * * /bin/bash /opt/lifelog/scripts/server_backup.sh >> /var/log/lifelog_backup.log 2>&1
+
+# Run health check every 30 minutes
+*/30 * * * * /bin/bash /opt/lifelog/scripts/server_healthcheck.sh https://your-domain.com >> /var/log/lifelog_health.log 2>&1
+
+# Renew HTTPS certificate daily at 03:20
+20 3 * * * certbot renew --quiet && systemctl reload nginx

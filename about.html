@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life Log | 关于</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="nav-wrap">
+        <a class="brand" href="index.html">Life Log</a>
+        <nav>
+          <a href="index.html" data-i18n-zh="首页" data-i18n-en="Home">首页</a>
+          <a href="timeline.html" data-i18n-zh="时间轴" data-i18n-en="Timeline">时间轴</a>
+          <a href="notes.html" data-i18n-zh="生活记录" data-i18n-en="Notes">生活记录</a>
+          <a class="active" href="about.html" data-i18n-zh="关于" data-i18n-en="About">关于</a>
+        </nav>
+        <div class="lang-switch" aria-label="language switcher">
+          <button data-lang="zh" aria-pressed="true">中文</button>
+          <button data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="site-shell">
+      <section class="hero fade-in">
+        <h1 data-i18n-zh="关于这个站点" data-i18n-en="About This Site">关于这个站点</h1>
+        <p data-i18n-zh="这里是我的个人生活档案，记录普通但真实的日常。" data-i18n-en="This is my personal archive of ordinary but real daily moments.">这里是我的个人生活档案，记录普通但真实的日常。</p>
+      </section>
+
+      <section class="about-grid fade-in delay-1">
+        <article class="about-card">
+          <h2 data-i18n-zh="站点目标" data-i18n-en="Site Goals">站点目标</h2>
+          <p data-i18n-zh="把碎片化生活整理成可以回看的时间线，给未来的自己一个更完整的记忆入口。" data-i18n-en="Turn fragmented moments into a readable timeline, so my future self can revisit life with more context.">把碎片化生活整理成可以回看的时间线，给未来的自己一个更完整的记忆入口。</p>
+          <h2 style="margin-top: 1rem" data-i18n-zh="联系" data-i18n-en="Contact">联系</h2>
+          <p>Email: hello@example.com</p>
+          <p>GitHub: github.com/yourname</p>
+        </article>
+
+        <aside class="stack-card">
+          <h2 data-i18n-zh="当前版本功能" data-i18n-en="Current Feature Set">当前版本功能</h2>
+          <ul>
+            <li data-i18n-zh="响应式布局（手机/电脑）" data-i18n-en="Responsive layout for phone and desktop">响应式布局（手机/电脑）</li>
+            <li data-i18n-zh="中英双语切换" data-i18n-en="Bilingual switch (Chinese/English)">中英双语切换</li>
+            <li data-i18n-zh="时间轴归档" data-i18n-en="Timeline archive">时间轴归档</li>
+            <li data-i18n-zh="站内搜索（标题/摘要/标签）" data-i18n-en="Site search (title/summary/tags)">站内搜索（标题/摘要/标签）</li>
+          </ul>
+        </aside>
+      </section>
+
+      <footer>
+        <p data-i18n-zh="下一步会增加相册页与 RSS 输出。" data-i18n-en="Next: photo gallery and RSS feed.">下一步会增加相册页与 RSS 输出。</p>
+      </footer>
+    </main>
+
+    <script src="assets/js/posts.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
