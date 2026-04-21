@@ -2,12 +2,19 @@
 
 这是一个双语个人生活记录网站，支持桌面端和移动端响应式访问。
 
+## 环境约定（先看这个）
+
+- 本地开发机：macOS
+- 线上服务器：Alibaba Cloud Linux 3（VPS）
+
+文档里命令会明确标注在“本地 Mac”还是“VPS”执行，避免混淆。
+
 ## 本地预览
 
 方式 1（推荐）：
 
 ```bash
-cd /Users/frank/Desktop/Vscode_frank/my_first_web
+cd <本地项目目录>
 python3 -m http.server 8080
 ```
 
@@ -34,6 +41,133 @@ python3 -m http.server 8080
 
 文章数据目前维护在 assets/js/posts.js。
 
+## 用真实内容替换示例内容（新手实操）
+
+下面是一套最稳妥的替换流程，按顺序做即可。
+
+### 第 1 步：先备份示例数据
+
+```bash
+cd <本地项目目录>
+cp assets/js/posts.js assets/js/posts.backup.js
+```
+
+### 第 2 步：理解一篇文章的数据结构
+
+在 assets/js/posts.js 里，每一篇记录是一个对象，核心字段如下：
+
+- slug：文章唯一标识（英文短横线）
+- date：日期，格式 YYYY-MM-DD
+- tags：标签数组
+- title.zh / title.en：中英文标题
+- summary.zh / summary.en：中英文摘要
+- content.zh / content.en：中英文正文
+- image：单图封面（可选）
+- images：多图相册（可选）
+
+建议先替换一篇，确认成功后再批量替换。
+
+### 第 3 步：新增你的第一篇真实文章
+
+操作方式：
+
+1. 打开 assets/js/posts.js
+2. 复制一个现有对象，改成你的内容
+3. 确保每个对象之间有英文逗号分隔
+4. 保存后本地预览
+
+### 第 4 步：导入图片并绑定文章
+
+单图封面：
+
+```bash
+python3 scripts/import_image.py ~/Desktop/my-photo.jpg --post 你的-slug
+```
+
+多图相册：
+
+```bash
+python3 scripts/import_image.py ~/Desktop/my-photo-1.jpg --post 你的-slug --mode gallery
+python3 scripts/import_image.py ~/Desktop/my-photo-2.jpg --post 你的-slug --mode gallery
+```
+
+### 第 5 步：本地验收
+
+```bash
+cd <本地项目目录>
+python3 -m http.server 8080
+```
+
+验收点：
+
+1. 首页能看到新文章
+2. notes 页面能搜索到新文章
+3. 图片和相册显示正常
+4. 手机端排版正常
+
+### 第 6 步：替换完后可删除示例文章
+
+当你的真实内容足够后，再删除示例对象，避免一次性大改带来风险。
+
+## Git 版本控制（新手推荐流程）
+
+目标：每次发布可追溯、可回滚。
+
+### 日常发布流程（推荐）
+
+1. 在本地修改内容
+2. 本地预览通过
+3. 提交 Git commit
+4. push 到 main
+5. 查看 GitHub Actions 部署结果
+
+### 常用命令模板
+
+```bash
+cd <本地项目目录>
+git status
+git add assets/js/posts.js assets/images
+git commit -m "content: publish 2026-04-21 life notes"
+git push origin main
+```
+
+### Commit 建议写法
+
+- content: 发布或修改文章
+- fix: 修复页面显示问题
+- docs: 修改文档
+- chore: 维护性调整
+
+示例：
+
+- content: add spring trip note
+- fix: correct timeline date typo
+- docs: update image import guide
+
+### 回滚（两种）
+
+方式 1：Git 回滚提交（推荐）
+
+```bash
+git log --oneline -n 10
+git revert <commit_id>
+git push origin main
+```
+
+方式 2：服务器回滚 release（紧急）
+
+```bash
+cd /var/www/lifelog/releases
+ls -1dt */
+ln -sfn /var/www/lifelog/releases/<old_release_id> /var/www/lifelog/current
+```
+
+### 强烈建议
+
+1. 不要在 VPS 上直接改线上文件
+2. 所有内容改动都从本地走 Git 发布
+3. 每次只做一类改动（内容或样式），便于排错
+
 ## 图片上传（方案一：本地导入，无后端接口）
 
 当前项目是 static site，没有后端上传 API。推荐使用本地导入脚本来完成图片管理：
@@ -50,7 +184,7 @@ python3 -m http.server 8080
 ### 一次性准备
 
 ```bash
-cd /Users/frank/Desktop/Vscode_frank/my_first_web
+cd <本地项目目录>
 chmod +x scripts/import_image.py
 ```
 
@@ -107,22 +241,26 @@ images: [
 
 - jpg / jpeg / png / webp / gif
 
-## VPS 部署（海外腾讯云）
+## VPS 部署（阿里云）
 
 ### Alibaba Cloud Linux 3（RHEL/CentOS 系）快速初始化
 
 你的系统如果是 Alibaba Cloud Linux 3，请不要使用 apt。可以直接运行项目里的初始化脚本：
 
+在本地 Mac 执行（把脚本传到 VPS 并远程执行）：
+
 ```bash
-cd /Users/frank/Desktop/Vscode_frank/my_first_web
+cd <本地项目目录>
 chmod +x scripts/bootstrap_alinux3.sh
-sudo bash scripts/bootstrap_alinux3.sh <你的部署用户>
+scp scripts/bootstrap_alinux3.sh <VPS登录用户>@<VPS_IP>:/tmp/bootstrap_alinux3.sh
+ssh <VPS登录用户>@<VPS_IP> "sudo bash /tmp/bootstrap_alinux3.sh <你的部署用户>"
 ```
 
 示例：
 
 ```bash
-sudo bash scripts/bootstrap_alinux3.sh ec2-user
+scp scripts/bootstrap_alinux3.sh ecs-user@1.2.3.4:/tmp/bootstrap_alinux3.sh
+ssh ecs-user@1.2.3.4 "sudo bash /tmp/bootstrap_alinux3.sh ecs-user"
 ```
 
 脚本会自动完成：
@@ -144,8 +282,10 @@ sudo chown -R $USER:$USER /var/www/lifelog
 
 2. 上传新版本并切换 current symlink：
 
+在本地 Mac 执行：
+
 ```bash
-cd /Users/frank/Desktop/Vscode_frank/my_first_web
+cd <本地项目目录>
 chmod +x deploy/deploy.sh
 ./deploy/deploy.sh user@your-vps-ip /var/www/lifelog/releases/202604210001
 ```
