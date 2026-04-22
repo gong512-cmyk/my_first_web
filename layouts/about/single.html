@@ -1,0 +1,19 @@
+{{ define "main" }}
+<section class="hero fade-in">
+  <h1>{{ .Title }}</h1>
+  <p>{{ i18n "about_subtitle" }}</p>
+</section>
+<section class="about-grid fade-in delay-1">
+  <article class="about-card">
+    {{ .Content }}
+  </article>
+  <aside class="stack-card">
+    <h2>{{ i18n "features_title" }}</h2>
+    <ul>
+      {{ range .Params.features }}
+      <li>{{ . }}</li>
+      {{ end }}
+    </ul>
+  </aside>
+</section>
+{{ end }}

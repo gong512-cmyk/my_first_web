@@ -1,0 +1,19 @@
+{{ define "main" }}
+<h2 class="section-title">{{ .Title }}</h2>
+{{ $allPosts := where .Site.RegularPages "Section" "posts" }}
+{{ range ($allPosts.GroupByDate "2006-01").Reverse }}
+<section class="timeline-month">
+  <h3>{{ .Key }}</h3>
+  <ul>
+    {{ range .Pages.ByDate.Reverse }}
+    <li>
+      <a href="{{ .Permalink }}">
+        <span class="timeline-date">{{ .Date.Format "2006-01-02" }}</span>
+        <span class="timeline-title">{{ .Title }}</span>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}
+{{ end }}

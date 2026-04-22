@@ -1,0 +1,40 @@
+baseURL = "/"
+defaultContentLanguage = "zh"
+defaultContentLanguageInSubdir = false
+title = "Life Log"
+enableRobotsTXT = true
+
+[languages.zh]
+  languageName = "中文"
+  weight = 1
+  title = "Life Log"
+
+[languages.en]
+  languageName = "EN"
+  weight = 2
+  title = "Life Log"
+
+[params]
+  brand = "Life Log"
+  description = "个人生活记录"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[taxonomies]
+  tag = "tags"
+
+# 将 RSS 输出为 /rss.xml（与原有 URL 保持一致）
+[outputFormats.RSS]
+  mediaType = "application/rss+xml"
+  baseName = "rss"
+  rel = "alternate"
+  isHTML = false
+  noUgly = true
+  permalinkable = false
+
+[outputs]
+  home    = ["HTML", "RSS"]
+  section = ["HTML"]
+  taxonomy = ["HTML"]
+  term     = ["HTML"]

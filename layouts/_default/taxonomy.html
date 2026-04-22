@@ -1,0 +1,15 @@
+{{ define "main" }}
+<h2 class="section-title">{{ .Title }}</h2>
+<div class="timeline-month">
+  <ul>
+    {{ range .Data.Terms.Alphabetical }}
+    <li>
+      <a href="{{ .Page.Permalink }}">
+        <span class="timeline-title">#{{ .Page.Title }}</span>
+        <span class="timeline-date">({{ .Count }})</span>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}
