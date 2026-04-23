@@ -1,7 +1,7 @@
 ---
-title: "短途看海"
+title: "日记 2026-03-20"
 date: 2026-03-20
-tags: [travel, sea]
+tags: [旅行, 看海]
 cover: gradient-4
 summary: "两天一夜，海风把思绪吹得很干净。"
 ---

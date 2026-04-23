@@ -1,7 +1,7 @@
 ---
-title: "今天第二件值得记下来的事"
+title: "日记 2026-04-22（2）"
 date: 2026-04-22
-tags: [game, reflection, curiosity]
+tags: [游戏, 反思, 好奇]
 cover: gradient-2
 images:
   - /assets/images/20260422-pic/gemsofwar.webp

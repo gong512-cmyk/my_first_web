@@ -1,7 +1,7 @@
 ---
-title: "雨夜读书"
+title: "日记 2026-03-28"
 date: 2026-03-28
-tags: [reading, rain]
+tags: [阅读, 雨夜]
 cover: gradient-3
 summary: "窗外下雨，屋里台灯和一本旧书。"
 ---

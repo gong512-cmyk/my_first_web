@@ -1,5 +1,5 @@
 ---
-title: "2026-04-23 · Flat Management and Human Reflection in the AI Era"
+title: "Diary 2026-04-23"
 date: 2026-04-23
 tags: [diary, AI Era, Flat Management, Learning, Human Nature, Finishing Touch]
 cover: gradient-2

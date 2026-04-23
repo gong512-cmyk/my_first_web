@@ -48,7 +48,7 @@ summary: "一句话摘要"
 
 **i18n strings:** `i18n/zh.yaml` and `i18n/en.yaml`. All UI text (nav labels, hero text, footer) goes here.
 
-**Static assets:** `static/assets/css/styles.css` and `static/assets/images/`. Served at `/assets/...`.
+**Static assets:** primary stylesheet source is `assets/css/styles.css` (loaded via Hugo resources pipeline in base template), while `static/assets/css/styles.css` is kept as compatibility fallback; images live in `static/assets/images/`. Served at `/assets/...`.
 
 **Standalone pages** (timeline, about): `content/timeline.zh.md` / `content/timeline.en.md` etc., with `type:` field in front matter to route to the correct layout.
 
@@ -81,7 +81,7 @@ Hugo generates the site into `public/`. This directory is git-ignored; GitHub Ac
 
 ## Cover Classes
 
-The `cover` field (e.g., `gradient-1`, `gradient-2`) is applied as a CSS class to post cards. Defined in `static/assets/css/styles.css`. Available: `gradient-1` through `gradient-4`.
+The `cover` field (e.g., `gradient-1`, `gradient-2`) is applied as a CSS class to post cards. Defined in `assets/css/styles.css` (synced to static fallback when needed). Available: `gradient-1` through `gradient-4`.
 
 ## Deployment
 

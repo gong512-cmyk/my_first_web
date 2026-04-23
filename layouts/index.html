@@ -1,27 +1,205 @@
 {{ define "main" }}
-<section class="hero fade-in">
-  <h1>{{ i18n "hero_title" }}</h1>
-  <p>{{ i18n "hero_desc" }}</p>
+{{ $posts := where .Site.RegularPages "Section" "posts" }}
+{{ $latest := first 8 ($posts.ByDate.Reverse) }}
+{{ $featured := index $latest 0 }}
+{{ $second := index $latest 1 }}
+{{ $third := index $latest 2 }}
+{{ $fourth := index $latest 3 }}
+{{ $visual := where $latest "Params.images" "!=" nil }}
+{{ $pick := newScratch }}
+{{ if ge (len $visual) 1 }}{{ $pick.Set "imageMain" (index $visual 0) }}{{ end }}
+{{ if ge (len $visual) 2 }}{{ $pick.Set "imageSide" (index $visual 1) }}{{ end }}
+
+{{ $yearPosts := 0 }}
+{{ $thisYear := now.Format "2006" }}
+{{ $shownTags := len .Site.Taxonomies.tags }}
+{{ if gt $shownTags 8 }}{{ $shownTags = 8 }}{{ end }}
+{{ range $posts }}
+  {{ if eq (.Date.Format "2006") $thisYear }}
+    {{ $yearPosts = add $yearPosts 1 }}
+  {{ end }}
+{{ end }}
+
+<section class="profile-card fade-in">
+  <div class="profile-left">
+    <div class="avatar"></div>
+    <div>
+      <div class="profile-name-row">
+        <h1>Frank</h1>
+        <span class="name-sub">Life Log</span>
+        <span class="author-badge">站点作者</span>
+      </div>
+      <p class="profile-bio">{{ i18n "hero_desc" }}</p>
+      <div class="chip-row">
+        <span class="chip">📍 上海</span>
+        <span class="chip">📝 {{ i18n "notes" }}</span>
+        <span class="chip">🌿 daily life</span>
+      </div>
+    </div>
+  </div>
+  <div class="profile-stats">
+    <div><strong>{{ len $posts }}</strong><span>{{ i18n "stat_posts" }}</span></div>
+    <div><strong>{{ len .Site.Taxonomies.tags }}</strong><span>{{ i18n "stat_tags" }}</span></div>
+    <div><strong>{{ $yearPosts }}</strong><span>{{ $thisYear }}</span></div>
+  </div>
 </section>
 
-<h2 class="section-title">{{ i18n "recent_posts" }}</h2>
-<section class="posts-grid">
-  {{ $posts := where .Site.RegularPages "Section" "posts" }}
-  {{ range first 3 $posts.ByDate.Reverse }}
-  {{ $cover := .Params.cover | default "gradient-1" }}
-  <article class="post-card {{ $cover }}">
-    <a href="{{ .Permalink }}">
-      {{ with .Params.images }}
-      <img class="post-image" src="{{ index . 0 }}" alt="{{ $.Title }}" loading="lazy" />
-      {{ end }}
-      <p class="post-date">{{ .Date.Format "2006-01-02" }}</p>
-      <h3>{{ .Title }}</h3>
-      <p class="post-summary">{{ .Params.summary }}</p>
+<section class="home-layout fade-in delay-1">
+  <aside class="left-rail">
+    <article class="panel-card">
+      <h3>{{ i18n "about" }}</h3>
+      <p>{{ i18n "about_subtitle" }}</p>
+    </article>
+    <article class="panel-card">
+      <h3>{{ i18n "tags" }}</h3>
+      <p>{{ i18n "tag_top_hint" (dict "Shown" $shownTags "Total" (len .Site.Taxonomies.tags)) }}</p>
       <div class="tag-row">
-        {{ range .Params.tags }}<span class="tag">#{{ . }}</span>{{ end }}
+        {{ range first 8 .Site.Taxonomies.tags.ByCount }}
+        <a class="tag" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }} ({{ .Count }})</a>
+        {{ end }}
       </div>
-    </a>
-  </article>
-  {{ end }}
+    </article>
+  </aside>
+
+  <section class="home-feed">
+    <div class="feed-head">
+      <h2>{{ i18n "recent_posts" }}</h2>
+      <div class="pill-tabs" role="tablist" aria-label="feed filter">
+        <button type="button" class="is-active" role="tab" aria-selected="true" data-feed-tab="all">{{ i18n "feed_all" }}</button>
+        <button type="button" role="tab" aria-selected="false" data-feed-tab="photo">{{ i18n "feed_photo" }}</button>
+        <button type="button" role="tab" aria-selected="false" data-feed-tab="thoughts">{{ i18n "feed_thoughts" }}</button>
+      </div>
+    </div>
+
+    <div class="bento-row" data-feed-group>
+      {{ with ($pick.Get "imageMain") }}
+      <article class="bento-card bento-main" data-feed-kind="photo">
+        <a href="{{ .RelPermalink }}">
+          {{ with .Params.images }}
+          <img class="post-image" src="{{ index . 0 }}" alt="{{ $.Title }}" loading="lazy" />
+          {{ end }}
+          <div class="bento-body">
+            <div class="meta-row">
+              <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+              {{ with index .Params.tags 0 }}<span class="tag-chip">{{ . }}</span>{{ end }}
+            </div>
+            <h3>{{ .Title }}</h3>
+            {{ with .Params.summary }}<p class="post-summary">{{ . }}</p>{{ end }}
+          </div>
+        </a>
+      </article>
+      {{ end }}
+
+      <div class="bento-side">
+        {{ with $second }}
+        <article class="bento-quote" data-feed-kind="thoughts">
+          <p>"{{ .Params.summary }}"</p>
+          <small>{{ .Date.Format "2006-01-02" }}</small>
+        </article>
+        {{ end }}
+
+        {{ with $third }}
+        <article class="bento-card bento-mini" data-feed-kind="thoughts">
+          <a href="{{ .RelPermalink }}">
+            <div class="meta-row">
+              <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+              {{ with index .Params.tags 0 }}<span class="tag-chip">{{ . }}</span>{{ end }}
+            </div>
+            <h3>{{ .Title }}</h3>
+          </a>
+        </article>
+        {{ end }}
+      </div>
+    </div>
+
+    <div class="bento-row" data-feed-group>
+      {{ with ($pick.Get "imageSide") }}
+      <article class="bento-card bento-photo" data-feed-kind="photo">
+        <a href="{{ .RelPermalink }}">
+          {{ with .Params.images }}
+          <img class="post-image" src="{{ index . 0 }}" alt="{{ $.Title }}" loading="lazy" />
+          {{ end }}
+          <div class="bento-body">
+            <div class="meta-row">
+              <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+              {{ with index .Params.tags 0 }}<span class="tag-chip">{{ . }}</span>{{ end }}
+            </div>
+            <h3>{{ .Title }}</h3>
+          </div>
+        </a>
+      </article>
+      {{ end }}
+
+      {{ with $second }}
+      <article class="bento-highlight" data-feed-kind="thoughts">
+        <span class="highlight-label">{{ i18n "recent_posts" }}</span>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Params.summary }}</p>
+        <small>{{ .Date.Format "2006-01-02" }}</small>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const root = document.currentScript && document.currentScript.closest(".home-layout");
+      if (!root) return;
+
+      const tabs = root.querySelectorAll("[data-feed-tab]");
+      const cards = root.querySelectorAll("[data-feed-kind]");
+      const groups = root.querySelectorAll("[data-feed-group]");
+
+      function applyFilter(filter) {
+        cards.forEach((card) => {
+          const kind = card.getAttribute("data-feed-kind");
+          const show = filter === "all" || kind === filter;
+          card.classList.toggle("is-hidden", !show);
+        });
+
+        groups.forEach((group) => {
+          const hasVisible = Array.from(group.querySelectorAll("[data-feed-kind]")).some(
+            (card) => !card.classList.contains("is-hidden")
+          );
+          group.classList.toggle("is-hidden", !hasVisible);
+        });
+
+        tabs.forEach((tab) => {
+          const active = tab.getAttribute("data-feed-tab") === filter;
+          tab.classList.toggle("is-active", active);
+          tab.setAttribute("aria-selected", active ? "true" : "false");
+        });
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => applyFilter(tab.getAttribute("data-feed-tab")));
+      });
+
+      applyFilter("all");
+    })();
+  </script>
+
+  <aside class="right-rail">
+    <article class="panel-card">
+      <h3>{{ i18n "top_posts" }}</h3>
+      <ol class="top-list">
+        {{ range first 3 $latest }}
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{ end }}
+      </ol>
+    </article>
+    <article class="year-card">
+      <p>{{ $thisYear }}</p>
+      <strong>{{ $yearPosts }}</strong>
+      <span>{{ i18n "stat_published_posts" }}</span>
+    </article>
+  </aside>
 </section>
+
+<nav class="mobile-bottom-nav" aria-label="mobile">
+  <a class="active" href="{{ "/" | relLangURL }}">{{ i18n "home" }}</a>
+  <a href="{{ "/posts/" | relLangURL }}">{{ i18n "notes" }}</a>
+  <a href="{{ "/timeline/" | relLangURL }}">{{ i18n "timeline" }}</a>
+  <a href="{{ "/about/" | relLangURL }}">{{ i18n "about" }}</a>
+</nav>
 {{ end }}

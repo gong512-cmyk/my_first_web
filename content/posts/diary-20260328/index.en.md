@@ -1,5 +1,5 @@
 ---
-title: "Reading On A Rainy Night"
+title: "Diary 2026-03-28"
 date: 2026-03-28
 tags: [reading, rain]
 cover: gradient-3

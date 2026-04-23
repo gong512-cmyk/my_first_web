@@ -1,5 +1,5 @@
 ---
-title: "My First Real Website Launch With Vibe Coding"
+title: "Diary 2026-04-22"
 date: 2026-04-22
 tags: [coding, website, vps, vibe-coding]
 cover: gradient-1

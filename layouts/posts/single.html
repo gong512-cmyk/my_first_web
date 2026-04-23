@@ -1,6 +1,7 @@
 {{ define "main" }}
-<div class="detail-panel">
-  <article class="note-article">
+{{ $related := where (where .Site.RegularPages "Section" "posts") "Permalink" "ne" .Permalink }}
+<section class="post-shell">
+  <article class="post-main detail-panel">
     {{ with .Params.images }}
     {{ if eq (len .) 1 }}
     <img class="note-image" src="{{ index . 0 }}" alt="{{ $.Title }}" loading="lazy" />
@@ -12,15 +13,45 @@
     </div>
     {{ end }}
     {{ end }}
-    <p class="post-date">{{ .Date.Format "2006-01-02" }}</p>
-    <h2>{{ .Title }}</h2>
-    {{ with .Params.summary }}<p class="post-summary">{{ . }}</p>{{ end }}
+
+    <div class="post-headline">
+      <p class="post-date">{{ .Date.Format "2006-01-02" }}</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.summary }}<p class="post-summary">{{ . }}</p>{{ end }}
+    </div>
+
     <div class="note-content">
       {{ .Content }}
     </div>
+
     <div class="tag-row">
-      {{ range .Params.tags }}<span class="tag">#{{ . }}</span>{{ end }}
+      {{ range .Params.tags }}<a class="tag" href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
     </div>
   </article>
-</div>
+
+  <aside class="post-side">
+    <article class="panel-card">
+      <h3>Meta</h3>
+      <p>{{ .Date.Format "2006-01-02" }}</p>
+      <p>{{ len .Params.tags }} tags</p>
+      <div class="tag-row">
+        {{ range .Params.tags }}<span class="tag">#{{ . }}</span>{{ end }}
+      </div>
+    </article>
+
+    <article class="panel-card">
+      <h3>{{ i18n "related_posts" }}</h3>
+      <ul class="related-list">
+        {{ range first 4 $related.ByDate.Reverse }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <small>{{ .Date.Format "2006-01-02" }}</small>
+        </li>
+        {{ end }}
+      </ul>
+    </article>
+
+    <a class="back-link" href="{{ "/posts/" | relLangURL }}">← {{ i18n "all_posts" }}</a>
+  </aside>
+</section>
 {{ end }}

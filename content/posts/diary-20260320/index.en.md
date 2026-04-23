@@ -1,5 +1,5 @@
 ---
-title: "A Short Trip To The Coast"
+title: "Diary 2026-03-20"
 date: 2026-03-20
 tags: [travel, sea]
 cover: gradient-4

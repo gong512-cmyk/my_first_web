@@ -1,7 +1,7 @@
 ---
-title: "周末做饭：番茄炖牛腩"
+title: "日记 2026-04-06"
 date: 2026-04-06
-tags: [food, home]
+tags: [美食, 居家]
 cover: gradient-2
 summary: "炖了两个小时，厨房里全是香味。"
 ---

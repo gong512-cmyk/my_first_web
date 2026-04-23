@@ -13,10 +13,11 @@ HOST="$1"
 REMOTE_RELEASE="$2"
 REMOTE_CURRENT="/var/www/lifelog/current"
 
+# Build Hugo output locally, then upload only public/ files.
+hugo --minify
+
 rsync -av --delete \
-  --exclude ".git" \
-  --exclude "deploy" \
-  ./ "$HOST:$REMOTE_RELEASE"
+  public/ "$HOST:$REMOTE_RELEASE/"
 
 ssh "$HOST" "ln -sfn '$REMOTE_RELEASE' '$REMOTE_CURRENT'"
 echo "Deploy complete: $REMOTE_RELEASE"

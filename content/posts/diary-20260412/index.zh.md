@@ -1,7 +1,7 @@
 ---
-title: "清晨散步，城市慢慢醒来"
+title: "日记 2026-04-12"
 date: 2026-04-12
-tags: [life, walk]
+tags: [生活, 散步]
 cover: gradient-1
 summary: "六点半出门，街道还空着，早餐店先亮了灯。"
 ---

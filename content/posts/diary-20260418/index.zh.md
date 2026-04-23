@@ -1,7 +1,7 @@
 ---
-title: "2026-04-18 · Vibe Coding、GitHub Copilot 与 AI 时代的工具选择"
+title: "日记 2026-04-18"
 date: 2026-04-18
-tags: [diary, vibe-coding, copilot, AI, obsidian]
+tags: [日记, 氛围编程, Copilot, AI, Obsidian]
 cover: gradient-1
 summary: "第一次用 GitHub Copilot 做 App，教老婆用 Hermes 搭日记系统，系统学习 Copilot 文档——这一天越来越清晰地感受到：Vibe Coding 正在把程序员的门槛拉低，而真正难被替代的，是人的好奇心和欲望。"
 ---

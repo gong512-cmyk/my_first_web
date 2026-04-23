@@ -1,19 +1,56 @@
 {{ define "main" }}
-<h2 class="section-title">{{ .Title }}</h2>
 {{ $allPosts := where .Site.RegularPages "Section" "posts" }}
-{{ range ($allPosts.GroupByDate "2006-01").Reverse }}
-<section class="timeline-month">
-  <h3>{{ .Key }}</h3>
-  <ul>
-    {{ range .Pages.ByDate.Reverse }}
-    <li>
-      <a href="{{ .Permalink }}">
-        <span class="timeline-date">{{ .Date.Format "2006-01-02" }}</span>
-        <span class="timeline-title">{{ .Title }}</span>
-      </a>
-    </li>
-    {{ end }}
-  </ul>
-</section>
+{{ $groups := ($allPosts.GroupByDate "2006-01").Reverse }}
+{{ $thisYear := now.Format "2006" }}
+{{ $yearPosts := 0 }}
+{{ range $allPosts }}
+  {{ if eq (.Date.Format "2006") $thisYear }}
+    {{ $yearPosts = add $yearPosts 1 }}
+  {{ end }}
 {{ end }}
+
+<section class="notes-hero fade-in">
+  <h1>{{ .Title }}</h1>
+  <p>{{ i18n "hero_desc" }}</p>
+  <div class="notes-hero-meta">
+    <span>{{ len $allPosts }} posts</span>
+    <span>·</span>
+    <span>{{ len $groups }} months</span>
+  </div>
+</section>
+
+<section class="timeline-shell fade-in delay-1">
+  <div class="timeline-stream">
+    {{ range $groups }}
+    <section class="timeline-month">
+      <h3>{{ .Key }}</h3>
+      <ul>
+        {{ range .Pages.ByDate.Reverse }}
+        <li>
+          <a href="{{ .Permalink }}">
+            <span class="timeline-date">{{ .Date.Format "2006-01-02" }}</span>
+            <span class="timeline-title">{{ .Title }}</span>
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+    </section>
+    {{ end }}
+  </div>
+
+  <aside class="timeline-side">
+    <article class="panel-card">
+      <h3>{{ i18n "timeline_summary" }}</h3>
+      <p>{{ i18n "timeline_posts_total" }}: {{ len $allPosts }}</p>
+      {{ with index ($allPosts.ByDate.Reverse) 0 }}
+      <p>{{ i18n "timeline_latest" }}: {{ .Date.Format "2006-01-02" }}</p>
+      {{ end }}
+    </article>
+    <article class="year-card">
+      <p>{{ $thisYear }}</p>
+      <strong>{{ $yearPosts }}</strong>
+      <span>{{ i18n "timeline_posts_this_year" }}</span>
+    </article>
+  </aside>
+</section>
 {{ end }}

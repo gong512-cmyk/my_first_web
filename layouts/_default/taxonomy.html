@@ -1,8 +1,10 @@
 {{ define "main" }}
-<h2 class="section-title">{{ .Title }}</h2>
+{{ $taxonomyTitle := .Title }}
+{{ if eq .Data.Plural "tags" }}{{ $taxonomyTitle = i18n "tags" }}{{ end }}
+<h2 class="section-title">{{ $taxonomyTitle }}</h2>
 <div class="timeline-month">
   <ul>
-    {{ range .Data.Terms.Alphabetical }}
+    {{ range .Data.Terms.ByCount }}
     <li>
       <a href="{{ .Page.Permalink }}">
         <span class="timeline-title">#{{ .Page.Title }}</span>

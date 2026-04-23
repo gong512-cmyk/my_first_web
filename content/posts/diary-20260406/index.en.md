@@ -1,5 +1,5 @@
 ---
-title: "Weekend Cooking: Tomato Beef Stew"
+title: "Diary 2026-04-06"
 date: 2026-04-06
 tags: [food, home]
 cover: gradient-2

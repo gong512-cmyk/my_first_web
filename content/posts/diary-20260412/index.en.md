@@ -1,5 +1,5 @@
 ---
-title: "Morning Walk While The City Wakes"
+title: "Diary 2026-04-12"
 date: 2026-04-12
 tags: [life, walk]
 cover: gradient-1

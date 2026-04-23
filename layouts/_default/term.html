@@ -1,13 +1,30 @@
 {{ define "main" }}
+{{ $pages := .Pages.ByDate.Reverse }}
+{{ $visualPages := where $pages "Params.images" "!=" nil }}
+{{ $textPages := where $pages "Params.images" "==" nil }}
 <h2 class="section-title">#{{ .Title }}</h2>
 <section class="posts-grid">
-  {{ range .Pages.ByDate.Reverse }}
+  {{ range $visualPages }}
   {{ $cover := .Params.cover | default "gradient-1" }}
   <article class="post-card {{ $cover }}">
     <a href="{{ .Permalink }}">
       {{ with .Params.images }}
       <img class="post-image" src="{{ index . 0 }}" alt="{{ $.Title }}" loading="lazy" />
       {{ end }}
+      <p class="post-date">{{ .Date.Format "2006-01-02" }}</p>
+      <h3>{{ .Title }}</h3>
+      <p class="post-summary">{{ .Params.summary }}</p>
+      <div class="tag-row">
+        {{ range .Params.tags }}<span class="tag">#{{ . }}</span>{{ end }}
+      </div>
+    </a>
+  </article>
+  {{ end }}
+
+  {{ range $textPages }}
+  {{ $cover := .Params.cover | default "gradient-1" }}
+  <article class="post-card {{ $cover }}">
+    <a href="{{ .Permalink }}">
       <p class="post-date">{{ .Date.Format "2006-01-02" }}</p>
       <h3>{{ .Title }}</h3>
       <p class="post-summary">{{ .Params.summary }}</p>

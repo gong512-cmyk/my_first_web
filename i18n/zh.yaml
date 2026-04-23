@@ -1,11 +1,26 @@
 home: 首页
 timeline: 时间轴
 notes: 生活记录
+tags: 标签
 about: 关于
 recent_posts: 最近更新
 all_posts: 所有记录
+read_more: 继续阅读
+related_posts: 相关文章
 features_title: 当前版本功能
 footer: "Life Log · 个人生活记录站点"
 hero_title: 把日常留在这里
 hero_desc: "这个网站记录我平时的生活碎片：散步、读书、做饭、短途旅行。手机和电脑都能舒服阅读，内容持续更新。"
 about_subtitle: "这里是我的个人生活档案，记录普通但真实的日常。"
+stat_posts: 文章数
+stat_tags: 标签数
+stat_published_posts: 已发布文章
+top_posts: 热门文章
+timeline_summary: 概览
+timeline_posts_total: 全部文章
+timeline_latest: 最新
+timeline_posts_this_year: 本年发布
+tag_top_hint: "显示前 {{ .Shown }} / {{ .Total }}"
+feed_all: 全部
+feed_photo: 图片
+feed_thoughts: 想法

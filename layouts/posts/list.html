@@ -1,7 +1,40 @@
 {{ define "main" }}
-<h2 class="section-title">{{ i18n "all_posts" }}</h2>
-<section class="posts-grid">
-  {{ range .Pages.ByDate.Reverse }}
+{{ $pages := .Pages.ByDate.Reverse }}
+{{ $featured := index $pages 0 }}
+{{ $visualPages := where $pages "Params.images" "!=" nil }}
+{{ if ge (len $visualPages) 1 }}{{ $featured = index $visualPages 0 }}{{ end }}
+
+<section class="notes-hero fade-in">
+  <h1>{{ i18n "all_posts" }}</h1>
+  <p>{{ i18n "hero_desc" }}</p>
+  <div class="notes-hero-meta">
+    <span>{{ len .Pages }} posts</span>
+    <span>·</span>
+    <span>{{ len .Site.Taxonomies.tags }} tags</span>
+  </div>
+</section>
+
+{{ with $featured }}
+<article class="notes-featured fade-in delay-1">
+  <a href="{{ .RelPermalink }}">
+    {{ with .Params.images }}
+    <img class="post-image" src="{{ index . 0 }}" alt="{{ $.Title }}" loading="lazy" />
+    {{ end }}
+    <div class="notes-featured-body">
+      <div class="meta-row">
+        <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+        {{ with index .Params.tags 0 }}<span class="tag-chip">{{ . }}</span>{{ end }}
+      </div>
+      <h2>{{ .Title }}</h2>
+      <p class="post-summary">{{ .Params.summary }}</p>
+      <span class="read-more">{{ i18n "read_more" }}</span>
+    </div>
+  </a>
+</article>
+{{ end }}
+
+<section class="notes-grid fade-in delay-1">
+  {{ range where $pages "Permalink" "ne" $featured.Permalink }}
   {{ $cover := .Params.cover | default "gradient-1" }}
   <article class="post-card {{ $cover }}">
     <a href="{{ .Permalink }}">

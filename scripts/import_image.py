@@ -148,6 +148,13 @@ def update_posts_file(posts_file: Path, post_slug: str, image_web_path: str, mod
 
 
 def main():
+    print(
+        "DEPRECATED: scripts/import_image.py is based on the old assets/js/posts.js data model and is not compatible with the current Hugo content structure.\n"
+        "Please add images under static/assets/images/... and update front matter (images) in content/posts/<slug>/index.zh.md and index.en.md manually.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
     parser = argparse.ArgumentParser(description="Import image into assets/images and optionally bind it to a post.")
     parser.add_argument("source", help="Source image path")
     parser.add_argument("--name", help="Target base name, default uses source file name")

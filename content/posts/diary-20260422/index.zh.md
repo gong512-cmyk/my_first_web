@@ -1,7 +1,7 @@
 ---
-title: "第一次用 Vibe Coding 把网站真正上线"
+title: "日记 2026-04-22"
 date: 2026-04-22
-tags: [coding, website, vps, vibe-coding]
+tags: [编程, 网站, VPS, 氛围编程]
 cover: gradient-1
 images:
   - /assets/images/20260422-pic/hermes_logo.png
