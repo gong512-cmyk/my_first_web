@@ -1,8 +1,11 @@
 {{ define "main" }}
 {{ $pages := .Pages.ByDate.Reverse }}
-{{ $featured := index $pages 0 }}
-{{ $visualPages := where $pages "Params.images" "!=" nil }}
-{{ if ge (len $visualPages) 1 }}{{ $featured = index $visualPages 0 }}{{ end }}
+{{ $featured := "" }}
+{{ if gt (len $pages) 0 }}
+  {{ $featured = index $pages 0 }}
+  {{ $visualPages := where $pages "Params.images" "!=" nil }}
+  {{ if ge (len $visualPages) 1 }}{{ $featured = index $visualPages 0 }}{{ end }}
+{{ end }}
 
 <section class="notes-hero fade-in">
   <h1>{{ i18n "all_posts" }}</h1>
@@ -34,7 +37,9 @@
 {{ end }}
 
 <section class="notes-grid fade-in delay-1">
-  {{ range where $pages "Permalink" "ne" $featured.Permalink }}
+  {{ $featuredPermalink := "" }}
+  {{ with $featured }}{{ $featuredPermalink = .Permalink }}{{ end }}
+  {{ range where $pages "Permalink" "ne" $featuredPermalink }}
   {{ $cover := .Params.cover | default "gradient-1" }}
   <article class="post-card {{ $cover }}">
     <a href="{{ .Permalink }}">

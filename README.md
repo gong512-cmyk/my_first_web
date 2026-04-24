@@ -38,14 +38,18 @@ images:
 summary: "一句话摘要"
 ```
 
-## 图片管理（当前策略）
-
-当前请手动管理图片：
+## 图片管理
 
 1. 将图片放到 `static/assets/images/<date>-pic/`
 2. 在文章 front matter 的 `images` 字段引用 `/assets/images/...`
 
-`scripts/import_image.py` 仍基于旧版 `assets/js/posts.js` 数据模型，当前 Hugo 架构下已不适用。
+也可以用 `scripts/import_image.py` 自动完成拷贝（可选 `--max-width` 调用 `sips` 缩放）：
+
+```bash
+python3 scripts/import_image.py path/to/photo.jpg --post diary-20260422 --date 2026-04-22
+```
+
+脚本会把图片拷到 `static/assets/images/<date>-pic/` 并打印应粘到 front matter 的路径。
 
 ## 发布与部署（推荐主流程）
 

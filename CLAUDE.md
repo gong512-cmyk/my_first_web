@@ -48,7 +48,7 @@ summary: "一句话摘要"
 
 **i18n strings:** `i18n/zh.yaml` and `i18n/en.yaml`. All UI text (nav labels, hero text, footer) goes here.
 
-**Static assets:** primary stylesheet source is `assets/css/styles.css` (loaded via Hugo resources pipeline in base template), while `static/assets/css/styles.css` is kept as compatibility fallback; images live in `static/assets/images/`. Served at `/assets/...`.
+**Static assets:** stylesheet source is `assets/css/styles.css`, loaded via Hugo resources pipeline in the base template. Inline/page JS lives in `assets/js/` and is loaded the same way. Images live in `static/assets/images/` and are served at `/assets/...`.
 
 **Standalone pages** (timeline, about): `content/timeline.zh.md` / `content/timeline.en.md` etc., with `type:` field in front matter to route to the correct layout.
 
@@ -70,10 +70,13 @@ Write your note with YAML front matter matching the fields above. Use `## 中文
 
 Images should go in `static/assets/images/{date}-pic/`. Reference them in front matter as `/assets/images/{date}-pic/filename.jpg`.
 
+Use the helper script to copy and (optionally) resize an image into the right folder:
+
 ```bash
-# The import_image.py script needs updating for Hugo (see scripts/import_image.py)
-# For now, manually copy images to static/assets/images/ and add paths to front matter
+python3 scripts/import_image.py path/to/photo.jpg --post diary-20260422 --date 2026-04-22
 ```
+
+It copies the file to `static/assets/images/<date>-pic/` and prints the path to paste into the post's `images:` front matter.
 
 ## Build Output
 
@@ -81,7 +84,7 @@ Hugo generates the site into `public/`. This directory is git-ignored; GitHub Ac
 
 ## Cover Classes
 
-The `cover` field (e.g., `gradient-1`, `gradient-2`) is applied as a CSS class to post cards. Defined in `assets/css/styles.css` (synced to static fallback when needed). Available: `gradient-1` through `gradient-4`.
+The `cover` field (e.g., `gradient-1`, `gradient-2`) is applied as a CSS class to post cards. Defined in `assets/css/styles.css`. Available: `gradient-1` through `gradient-4`.
 
 ## Deployment
 
