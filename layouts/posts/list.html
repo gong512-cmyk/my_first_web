@@ -3,8 +3,6 @@
 {{ $featured := "" }}
 {{ if gt (len $pages) 0 }}
   {{ $featured = index $pages 0 }}
-  {{ $visualPages := where $pages "Params.images" "!=" nil }}
-  {{ if ge (len $visualPages) 1 }}{{ $featured = index $visualPages 0 }}{{ end }}
 {{ end }}
 
 <section class="notes-hero fade-in">

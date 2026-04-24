@@ -5,10 +5,9 @@
 {{ $second := index $latest 1 }}
 {{ $third := index $latest 2 }}
 {{ $fourth := index $latest 3 }}
-{{ $visual := where $latest "Params.images" "!=" nil }}
 {{ $pick := newScratch }}
-{{ if ge (len $visual) 1 }}{{ $pick.Set "imageMain" (index $visual 0) }}{{ end }}
-{{ if ge (len $visual) 2 }}{{ $pick.Set "imageSide" (index $visual 1) }}{{ end }}
+{{ $pick.Set "imageMain" $featured }}
+{{ if ge (len $latest) 4 }}{{ $pick.Set "imageSide" $fourth }}{{ end }}
 
 {{ $yearPosts := 0 }}
 {{ $thisYear := now.Format "2006" }}
