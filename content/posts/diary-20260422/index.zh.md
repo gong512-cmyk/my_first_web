@@ -3,8 +3,6 @@ title: "日记 2026-04-22"
 date: 2026-04-22
 tags: [编程, 网站, VPS, 氛围编程]
 cover: gradient-1
-images:
-  - /assets/images/20260422-pic/hermes_logo.png
 summary: "今天第一次用 Vibe Coding 真正把自己的网站做上线了。虽然过程里踩了不少坑，但最后还是把网站在 VPS 上跑通了。"
 ---
 

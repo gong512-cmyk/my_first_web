@@ -3,8 +3,6 @@ title: "Diary 2026-04-22"
 date: 2026-04-22
 tags: [coding, website, vps, vibe-coding]
 cover: gradient-1
-images:
-  - /assets/images/20260422-pic/hermes_logo.png
 summary: "Today I truly launched my own website with Vibe Coding for the first time. The process was messy, but I finally got the site running on my VPS."
 ---
 

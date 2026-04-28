@@ -3,8 +3,6 @@ title: "Diary 2026-04-22 (2)"
 date: 2026-04-22
 tags: [game, reflection, curiosity]
 cover: gradient-2
-images:
-  - /assets/images/20260422-pic/gemsofwar.webp
 summary: "While helping my wife with Gems of War, I realized again that games are not only about efficiency and power; exploration and engagement matter on their own."
 ---
 

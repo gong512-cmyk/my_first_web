@@ -3,8 +3,6 @@ title: "日记 2026-04-22（2）"
 date: 2026-04-22
 tags: [游戏, 反思, 好奇]
 cover: gradient-2
-images:
-  - /assets/images/20260422-pic/gemsofwar.webp
 summary: "帮老婆玩《Gems of War》时，我重新意识到：游戏不只是效率和强度，探索与投入本身也很有意义。"
 ---
 

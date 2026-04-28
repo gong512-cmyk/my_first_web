@@ -24,3 +24,6 @@ tag_top_hint: "显示前 {{ .Shown }} / {{ .Total }}"
 feed_all: 全部
 feed_photo: 图片
 feed_thoughts: 想法
+author_badge: 站点作者
+post_meta: 文章信息
+stat_tags_count: "{{ .Count }} 个标签"

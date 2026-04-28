@@ -31,9 +31,9 @@
 
   <aside class="post-side">
     <article class="panel-card">
-      <h3>Meta</h3>
+      <h3>{{ i18n "post_meta" }}</h3>
       <p>{{ .Date.Format "2006-01-02" }}</p>
-      <p>{{ len .Params.tags }} tags</p>
+      <p>{{ i18n "stat_tags_count" (dict "Count" (len .Params.tags)) }}</p>
       <div class="tag-row">
         {{ range .Params.tags }}<span class="tag">#{{ . }}</span>{{ end }}
       </div>

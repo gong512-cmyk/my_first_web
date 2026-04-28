@@ -8,15 +8,18 @@ enableRobotsTXT = true
   languageName = "中文"
   weight = 1
   title = "Life Log"
+  [languages.zh.params]
+    description = "个人生活记录"
 
 [languages.en]
   languageName = "EN"
   weight = 2
   title = "Life Log"
+  [languages.en.params]
+    description = "Personal daily archive"
 
 [params]
   brand = "Life Log"
-  description = "个人生活记录"
 
 [markup.goldmark.renderer]
   unsafe = true

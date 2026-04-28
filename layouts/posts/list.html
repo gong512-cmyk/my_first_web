@@ -18,8 +18,9 @@
 {{ with $featured }}
 <article class="notes-featured fade-in delay-1">
   <a href="{{ .RelPermalink }}">
+    {{ $imgAlt := .Title }}
     {{ with .Params.images }}
-    <img class="post-image" src="{{ index . 0 }}" alt="{{ $.Title }}" loading="lazy" />
+    <img class="post-image" src="{{ index . 0 }}" alt="{{ $imgAlt }}" loading="lazy" />
     {{ end }}
     <div class="notes-featured-body">
       <div class="meta-row">
@@ -27,7 +28,7 @@
         {{ with index .Params.tags 0 }}<span class="tag-chip">{{ . }}</span>{{ end }}
       </div>
       <h2>{{ .Title }}</h2>
-      <p class="post-summary">{{ .Params.summary }}</p>
+      {{ with .Params.summary }}<p class="post-summary">{{ . }}</p>{{ end }}
       <span class="read-more">{{ i18n "read_more" }}</span>
     </div>
   </a>
@@ -41,12 +42,13 @@
   {{ $cover := .Params.cover | default "gradient-1" }}
   <article class="post-card {{ $cover }}">
     <a href="{{ .Permalink }}">
+      {{ $imgAlt := .Title }}
       {{ with .Params.images }}
-      <img class="post-image" src="{{ index . 0 }}" alt="{{ $.Title }}" loading="lazy" />
+      <img class="post-image" src="{{ index . 0 }}" alt="{{ $imgAlt }}" loading="lazy" />
       {{ end }}
       <p class="post-date">{{ .Date.Format "2006-01-02" }}</p>
       <h3>{{ .Title }}</h3>
-      <p class="post-summary">{{ .Params.summary }}</p>
+      {{ with .Params.summary }}<p class="post-summary">{{ . }}</p>{{ end }}
       <div class="tag-row">
         {{ range .Params.tags }}<span class="tag">#{{ . }}</span>{{ end }}
       </div>
