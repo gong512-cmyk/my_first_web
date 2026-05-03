@@ -857,14 +857,17 @@ footer {
 
 /* ─── Responsive ────────────────────────────────── */
 @media (max-width: 1060px) {
-  .page-hero { grid-template-columns: 1fr; min-height: auto; gap: 2rem; margin-top: 1.5rem; }
-  .page-hero-visual { order: -1; }
-  .portrait-frame { justify-content: center; }
-  .portrait-img { max-width: 300px; }
   .notes-featured a { grid-template-columns: 1fr; }
   .post-shell, .timeline-shell, .about-shell { grid-template-columns: 1fr; }
   .post-side, .timeline-side, .about-side { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .notes-grid, .posts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 860px) {
+  .page-hero { grid-template-columns: 1fr; min-height: auto; gap: 2rem; margin-top: 1.5rem; }
+  .page-hero-visual { order: -1; }
+  .portrait-frame { justify-content: center; }
+  .portrait-img { max-width: 300px; }
 }
 
 @media (max-width: 680px) {
