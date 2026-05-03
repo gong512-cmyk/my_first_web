@@ -27,3 +27,7 @@ feed_thoughts: 想法
 author_badge: 站点作者
 post_meta: 文章信息
 stat_tags_count: "{{ .Count }} 个标签"
+hero_cta_primary: 读最新日志
+hero_cta_secondary: 关于我
+recent_activity: 最近动态
+more_posts: 查看更多

@@ -27,3 +27,7 @@ feed_thoughts: Thoughts
 author_badge: Site Author
 post_meta: Post Info
 stat_tags_count: "{{ .Count }} tags"
+hero_cta_primary: Read Latest
+hero_cta_secondary: About Me
+recent_activity: Recent Activity
+more_posts: View More

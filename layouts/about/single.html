@@ -1,10 +1,11 @@
 {{ define "main" }}
-<section class="notes-hero fade-in">
+<section class="notes-hero">
+  <span class="hero-eyebrow">{{ i18n "about" }}</span>
   <h1>{{ .Title }}</h1>
   <p>{{ i18n "about_subtitle" }}</p>
 </section>
 
-<section class="about-shell fade-in delay-1">
+<section class="about-shell">
   <article class="about-card">
     {{ .Content }}
   </article>

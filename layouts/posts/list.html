@@ -5,18 +5,19 @@
   {{ $featured = index $pages 0 }}
 {{ end }}
 
-<section class="notes-hero fade-in">
+<section class="notes-hero">
+  <span class="hero-eyebrow">{{ i18n "notes" }}</span>
   <h1>{{ i18n "all_posts" }}</h1>
   <p>{{ i18n "hero_desc" }}</p>
   <div class="notes-hero-meta">
-    <span>{{ len .Pages }} posts</span>
+    <span>{{ len .Pages }} {{ i18n "stat_posts" }}</span>
     <span>·</span>
-    <span>{{ len .Site.Taxonomies.tags }} tags</span>
+    <span>{{ len .Site.Taxonomies.tags }} {{ i18n "stat_tags" }}</span>
   </div>
 </section>
 
 {{ with $featured }}
-<article class="notes-featured fade-in delay-1">
+<article class="notes-featured">
   <a href="{{ .RelPermalink }}">
     {{ $imgAlt := .Title }}
     {{ with .Params.images }}
@@ -35,23 +36,22 @@
 </article>
 {{ end }}
 
-<section class="notes-grid fade-in delay-1">
+<section class="notes-grid">
   {{ $featuredPermalink := "" }}
   {{ with $featured }}{{ $featuredPermalink = .Permalink }}{{ end }}
   {{ range where $pages "Permalink" "ne" $featuredPermalink }}
-  {{ $cover := .Params.cover | default "gradient-1" }}
-  <article class="post-card {{ $cover }}">
-    <a href="{{ .Permalink }}">
+  <article class="post-card">
+    <a href="{{ .RelPermalink }}">
       {{ $imgAlt := .Title }}
       {{ with .Params.images }}
       <img class="post-image" src="{{ index . 0 }}" alt="{{ $imgAlt }}" loading="lazy" />
       {{ end }}
-      <p class="post-date">{{ .Date.Format "2006-01-02" }}</p>
+      <div class="meta-row">
+        <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+        {{ with index .Params.tags 0 }}<span class="tag-chip">{{ . }}</span>{{ end }}
+      </div>
       <h3>{{ .Title }}</h3>
       {{ with .Params.summary }}<p class="post-summary">{{ . }}</p>{{ end }}
-      <div class="tag-row">
-        {{ range .Params.tags }}<span class="tag">#{{ . }}</span>{{ end }}
-      </div>
     </a>
   </article>
   {{ end }}
