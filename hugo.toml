@@ -24,6 +24,9 @@ enableRobotsTXT = true
 [markup.goldmark.renderer]
   unsafe = true
 
+[markup.goldmark.extensions]
+  linkify = true
+
 [taxonomies]
   tag = "tags"
 

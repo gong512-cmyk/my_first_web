@@ -21,6 +21,7 @@
     {{ with resources.Get "css/styles.css" }}
     <link rel="stylesheet" href="{{ .RelPermalink }}" />
     {{ end }}
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   </head>
   <body>
     <header>
@@ -48,6 +49,16 @@
       {{ block "main" . }}{{ end }}
       <footer>
         <p>{{ i18n "footer" }}</p>
+        <p class="site-metrics">
+          <span>
+            {{ if eq .Site.Language.Lang "zh" }}本文访问{{ else }}Page Views{{ end }}
+            <strong id="busuanzi_value_page_pv">0</strong>
+          </span>
+          <span>
+            {{ if eq .Site.Language.Lang "zh" }}累计访问{{ else }}Total Visits{{ end }}
+            <strong id="busuanzi_value_site_pv">0</strong>
+          </span>
+        </p>
       </footer>
     </main>
   </body>

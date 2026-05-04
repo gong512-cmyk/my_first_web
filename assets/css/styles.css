@@ -686,6 +686,32 @@ nav a:hover {
 .note-content h2, .note-content h3 { margin-top: 1.4rem; }
 .note-content p, .note-content li { line-height: 1.85; }
 
+/* AI 资讯中的裸链接用图标替代长 URL，减少视觉噪音 */
+.ai-news-main .note-content a[href^="http"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-left: 0.15rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  font-size: 0;
+  vertical-align: middle;
+}
+
+.ai-news-main .note-content a[href^="http"]::after {
+  content: "🔗";
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.ai-news-main .note-content a[href^="http"]:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
 .post-side {
   display: grid;
   gap: 0.8rem;
@@ -833,6 +859,24 @@ footer {
   color: var(--ink-soft);
   font-size: 0.84rem;
   font-family: "Inter", sans-serif;
+}
+
+.site-metrics {
+  margin: 0.4rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-metrics span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.site-metrics strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 /* ─── Dark mode ─────────────────────────────────── */
