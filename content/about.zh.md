@@ -15,6 +15,6 @@ features:
 
 ## 联系
 
-Email: hello@example.com
+Email: gong512@gmail.com
 
-GitHub: github.com/yourname
+GitHub: github.com/gong512-cmyk

@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ $allPosts := where .Site.RegularPages "Section" "posts" }}
-{{ $groups := ($allPosts.GroupByDate "2006-01").Reverse }}
+{{ $groups := $allPosts.GroupByDate "2006-01" }}
 {{ $thisYear := now.Format "2006" }}
 {{ $yearPosts := 0 }}
 {{ range $allPosts }}

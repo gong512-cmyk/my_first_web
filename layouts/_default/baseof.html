@@ -33,6 +33,7 @@
           <a href="{{ "/" | relLangURL }}"{{ if .IsHome }} class="active"{{ end }}>{{ i18n "home" }}</a>
           <a href="{{ "/posts/" | relLangURL }}"{{ if eq .Section "posts" }} class="active"{{ end }}>{{ i18n "notes" }}</a>
           <a href="{{ "/timeline/" | relLangURL }}"{{ if eq .Type "timeline" }} class="active"{{ end }}>{{ i18n "timeline" }}</a>
+          <a href="{{ "/ai-news/" | relLangURL }}"{{ if eq .Section "ai-news" }} class="active"{{ end }}>{{ i18n "ai_news" }}</a>
           <a href="{{ "/about/" | relLangURL }}"{{ if eq .Type "about" }} class="active"{{ end }}>{{ i18n "about" }}</a>
         </nav>
         <div class="lang-switch" aria-label="language switcher">

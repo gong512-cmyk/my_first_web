@@ -1,0 +1,49 @@
+{{ define "main" }}
+{{ $pages := .Pages.ByDate.Reverse }}
+{{ $featured := "" }}
+{{ if gt (len $pages) 0 }}
+  {{ $featured = index $pages 0 }}
+{{ end }}
+
+<section class="notes-hero">
+  <span class="hero-eyebrow">{{ i18n "ai_news" }}</span>
+  <h1>{{ i18n "ai_news_title" }}</h1>
+  <p>{{ i18n "ai_news_desc" }}</p>
+  <div class="notes-hero-meta">
+    <span>{{ len .Pages }} {{ i18n "stat_posts" }}</span>
+  </div>
+</section>
+
+{{ with $featured }}
+<article class="notes-featured">
+  <a href="{{ .RelPermalink }}">
+    <div class="notes-featured-body">
+      <div class="meta-row">
+        <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+        <span class="tag-chip">AI资讯</span>
+      </div>
+      <h2>{{ .Title }}</h2>
+      {{ with .Params.summary }}<p class="post-summary">{{ . }}</p>{{ end }}
+      <span class="read-more">{{ i18n "read_more" }}</span>
+    </div>
+  </a>
+</article>
+{{ end }}
+
+<section class="notes-grid">
+  {{ $featuredPermalink := "" }}
+  {{ with $featured }}{{ $featuredPermalink = .Permalink }}{{ end }}
+  {{ range where $pages "Permalink" "ne" $featuredPermalink }}
+  <article class="post-card {{ .Params.cover }}">
+    <a href="{{ .RelPermalink }}">
+      <div class="meta-row">
+        <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+        <span class="tag-chip">AI资讯</span>
+      </div>
+      <h3>{{ .Title }}</h3>
+      {{ with .Params.summary }}<p class="post-summary">{{ . }}</p>{{ end }}
+    </a>
+  </article>
+  {{ end }}
+</section>
+{{ end }}

@@ -1,0 +1,41 @@
+{{ define "main" }}
+{{ $related := where (where .Site.RegularPages "Section" "ai-news") "Permalink" "ne" .Permalink }}
+<section class="post-shell">
+  <article class="post-main detail-panel">
+    <div class="post-headline">
+      <p class="post-date">{{ .Date.Format "2006-01-02" }}</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.summary }}<p class="post-summary">{{ . }}</p>{{ end }}
+    </div>
+
+    <div class="note-content">
+      {{ .Content }}
+    </div>
+
+    <div class="tag-row">
+      {{ range .Params.tags }}<a class="tag" href="{{ "/tags/" | relLangURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
+    </div>
+  </article>
+
+  <aside class="post-side">
+    <article class="panel-card">
+      <h3>{{ i18n "post_meta" }}</h3>
+      <p>{{ .Date.Format "2006-01-02" }}</p>
+    </article>
+
+    <article class="panel-card">
+      <h3>{{ i18n "recent_posts" }}</h3>
+      <ul class="related-list">
+        {{ range first 5 $related.ByDate.Reverse }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <small>{{ .Date.Format "2006-01-02" }}</small>
+        </li>
+        {{ end }}
+      </ul>
+    </article>
+
+    <a class="back-link" href="{{ "/ai-news/" | relLangURL }}">← {{ i18n "ai_news" }}</a>
+  </aside>
+</section>
+{{ end }}
